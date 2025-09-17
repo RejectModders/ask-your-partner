@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Be My Girlfriend?</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A romantic way to ask your partner out">
+    <title>Be My Partner? 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
 </head>
 <body>
+<!-- Floating hearts background -->
+<div class="hearts-background" id="heartsBackground"></div>
 
-<h1 id="question">Will you be my girlfriend?</h1>
+<!-- Twinkling stars -->
+<div class="stars-container" id="starsContainer"></div>
 
-<div class="buttons">
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
+<!-- Main content container -->
+<div class="main-container">
+    <div class="question-container">
+        <h1 id="question" class="main-question">Loading...</h1>
+    </div>
+
+    <div class="buttons-container">
+        <button id="yesBtn" class="btn yes-btn">
+            <span class="btn-text">Yes ❤️</span>
+            <div class="btn-glow"></div>
+        </button>
+        <button id="noBtn" class="btn no-btn">
+            <span class="btn-text">No</span>
+            <div class="btn-glow"></div>
+        </button>
+    </div>
+
+    <div class="message-container">
+        <div id="message" class="response-message"></div>
+    </div>
 </div>
 
-<div class="message" id="message"></div>
+<!-- Loading indicator -->
+<div id="loading" class="loading">
+    <div class="loading-heart">💕</div>
+    <p>Loading love...</p>
+</div>
+
+<!-- Error message -->
+<div id="error" class="error-message" style="display: none;">
+    <p>Oops! Something went wrong. Using default settings... 💔</p>
+</div>
 
 <script src="script.js"></script>
 </body>

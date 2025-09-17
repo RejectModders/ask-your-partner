@@ -1,0 +1,61 @@
+{
+  "question": {
+    "text": "Will you be my girlfriend?",
+    "fontSize": "2.2rem",
+    "color": "#ffffff"
+  },
+  "buttons": {
+    "yes": {
+      "text": "Yes ❤️",
+      "color": "#ff69b4",
+      "hoverColor": "#ff1493"
+    },
+    "no": {
+      "text": "No",
+      "color": "#ff6b6b",
+      "hoverColor": "#ff4757"
+    }
+  },
+  "messages": {
+    "success": "Awww 😍 See you Friday!",
+    "rejection": [
+      "Please...? 💕",
+      "Pretty please? 🥺",
+      "I promise I'll treat you right! 🌹",
+      "Just give me a chance? 💖"
+    ],
+    "finalMessage": "Only one choice remains 😈",
+    "systemError": "System Error... Accepting is mandatory 💘"
+  },
+  "effects": {
+    "hearts": {
+      "enabled": true,
+      "colors": ["#ff69b4", "#ff1493", "#dc143c", "#b22222", "#ff6347"],
+      "count": 150
+    },
+    "confetti": {
+      "enabled": true,
+      "colors": ["#ff69b4", "#ffd700", "#ff6347", "#ff1493", "#ffb6c1", "#ffc0cb"],
+      "count": 100
+    },
+    "sound": {
+      "enabled": true,
+      "volume": 0.15
+    }
+  },
+  "compliments": [
+    "You're amazing! 💖",
+    "You light up my world! ✨",
+    "Best decision ever! 😍",
+    "You make my heart flutter! 🦋",
+    "Perfect choice! 💕",
+    "You're incredible! 🌹"
+  ],
+  "theme": {
+    "primaryColor": "#ff69b4",
+    "secondaryColor": "#ff1493",
+    "backgroundColor": "#0a0a0a",
+    "textColor": "#ffffff",
+    "fontFamily": "'Poppins', 'Arial', sans-serif"
+  }
+}
