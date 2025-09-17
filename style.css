@@ -1,0 +1,293 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin: 20px;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    max-width: 150px;
+}
+
+#yesBtn {
+    background-color: #4CAF50;
+    color: white;
+    box-shadow: 0 0 10px #4CAF50;
+}
+
+#yesBtn:hover {
+    transform: scale(1.1);
+}
+
+#noBtn {
+    background-color: #e53935;
+    color: white;
+    box-shadow: 0 0 10px #e53935;
+}
+
+.message {
+    margin-top: 30px;
+    font-size: 1.4rem;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(2px, -2px); }
+    60% { transform: translate(-1px, 1px); }
+    80% { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
+}
+
+.heart {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: red;
+    transform: rotate(45deg);
+    animation: fall 3s linear infinite;
+    z-index: 9999;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    left: -10px;
+    top: 0;
+}
+
+@keyframes fall {
+    0% {
+        transform: rotate(45deg) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(45deg) translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    width: 12px;
+    height: 18px;
+    border-radius: 4px;
+    opacity: 0.8;
+    z-index: 9999;
+    animation: confetti-fall linear forwards;
+}
+
+@keyframes confetti-fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.7;
+    }
+}
+
+.try-again-btn {
+    margin-top: 40px;
+    padding: 14px 32px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #ff69b4, #ffd700, #00e6e6, #ff6347, #7cfc00, #1e90ff);
+    color: #222;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 18px #fff7, 0 0 8px #ff69b4;
+    animation: pulse 1.2s infinite alternate;
+    transition: transform 0.2s;
+}
+
+.try-again-btn:hover {
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 0 30px #fff, 0 0 16px #ff69b4;
+}
+
+@keyframes pulse {
+    from { filter: brightness(1); }
+    to { filter: brightness(1.25); }
+}
+
+body.pulse-bg {
+    animation: pulse-bg 0.7s;
+}
+
+@keyframes pulse-bg {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.5) saturate(1.5); }
+    100% { filter: brightness(1); }
+}
+
+body.flash-bg {
+    position: relative;
+    overflow: hidden;
+}
+body.flash-bg::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.08);
+    pointer-events: none;
+    z-index: 99999;
+    animation: flash-bg-overlay 0.25s;
+}
+
+@keyframes flash-bg-overlay {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.burst-heart {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    background: red;
+    transform: rotate(45deg) scale(1);
+    z-index: 99999;
+    pointer-events: none;
+    animation: burst-heart-fly 0.9s cubic-bezier(.6,-0.28,.74,.05) forwards;
+}
+.burst-heart::before,
+.burst-heart::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: red;
+    border-radius: 50%;
+}
+.burst-heart::before { top: -9px; left: 0; }
+.burst-heart::after { left: -9px; top: 0; }
+.burst-heart {
+    animation: burst-heart-fly 0.9s cubic-bezier(.6,-0.28,.74,.05) forwards;
+}
+@keyframes burst-heart-fly {
+    0% { opacity: 1; transform: rotate(45deg) scale(1);}
+    80% { opacity: 1; }
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) scale(1.7) translateY(-60px) translateX(30px) rotate(var(--angle, 0deg));
+    }
+}
+
+.shake {
+    animation: shake-btn 0.4s;
+}
+@keyframes shake-btn {
+    0% { transform: translateX(0);}
+    20% { transform: translateX(-8px);}
+    40% { transform: translateX(8px);}
+    60% { transform: translateX(-6px);}
+    80% { transform: translateX(6px);}
+    100% { transform: translateX(0);}
+}
+
+.floating-shape {
+    position: fixed;
+    bottom: -60px;
+    z-index: 1;
+    animation: float-shape linear forwards;
+    filter: blur(1px);
+}
+@keyframes float-shape {
+    0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-110vh) scale(1.2) rotate(360deg);
+    }
+}
+
+.twinkle-star {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+    animation: twinkle 2.5s infinite;
+}
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+}
+
+.floating-compliment {
+    position: fixed;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fffbe7;
+    text-shadow: 0 2px 12px #ff69b4, 0 0 8px #ffd700;
+    z-index: 10000;
+    pointer-events: none;
+    animation: compliment-float 4s ease-out forwards;
+}
+@keyframes compliment-float {
+    0% { opacity: 0; transform: translateY(0) scale(0.9);}
+    10% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-120px) scale(1.1);}
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.6rem;
+        padding: 0 20px;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 10px 18px;
+    }
+
+    .message {
+        font-size: 1.2rem;
+    }
+}
