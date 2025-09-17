@@ -1,6 +1,6 @@
 {
   "question": {
-    "text": "Will you be my girlfriend?",
+    "text": "Will you be my girlfriend?????",
     "fontSize": "2.2rem",
     "color": "#ffffff"
   },
@@ -31,7 +31,8 @@
     "hearts": {
       "enabled": true,
       "colors": ["#ff69b4", "#ff1493", "#dc143c", "#b22222", "#ff6347"],
-      "count": 150
+      "count": 150,
+      "symbols": ["💕", "💖", "💗", "💓", "💘", "💝", "❤️", "💙", "💜", "🧡"]
     },
     "confetti": {
       "enabled": true,
@@ -40,7 +41,23 @@
     },
     "sound": {
       "enabled": true,
-      "volume": 0.15
+      "volume": 0.15,
+      "yes": {
+        "type": "triangle",
+        "frequency": {
+          "start": 880,
+          "end": 440
+        },
+        "duration": 0.25
+      },
+      "no": {
+        "type": "square",
+        "frequency": {
+          "start": 220,
+          "end": 110
+        },
+        "duration": 0.18
+      }
     }
   },
   "compliments": [

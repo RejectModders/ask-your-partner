@@ -25,48 +25,128 @@ class RomanticApp {
         }
     }
 
-    async loadConfig() {
-        try {
-            const response = await fetch('config.json');
-            if (!response.ok) throw new Error('Config not found');
-            this.config = await response.json();
-        } catch (error) {
-            console.warn('Using default config:', error);
-            this.config = this.getDefaultConfig();
-        }
-    }
-
     getDefaultConfig() {
+        // Remove all hardcoded values and return empty structure
         return {
             question: {
-                text: "Will you be my girlfriend?",
-                fontSize: "2.2rem",
-                color: "#ffffff"
+                text: "",
+                fontSize: "",
+                color: ""
             },
             buttons: {
-                yes: { text: "Yes ❤️", color: "#ff69b4", hoverColor: "#ff1493" },
-                no: { text: "No", color: "#ff6b6b", hoverColor: "#ff4757" }
+                yes: { text: "", color: "", hoverColor: "" },
+                no: { text: "", color: "", hoverColor: "" }
             },
             messages: {
-                success: "Awww 😍 See you Friday!",
-                rejection: ["Please...? 💕", "Pretty please? 🥺", "I promise I'll treat you right! 🌹"],
-                finalMessage: "Only one choice remains 😈",
-                systemError: "System Error... Accepting is mandatory 💘"
+                success: "",
+                rejection: [],
+                finalMessage: "",
+                systemError: ""
             },
             effects: {
-                hearts: { enabled: true, colors: ["#ff69b4", "#ff1493", "#dc143c"], count: 100 },
-                confetti: { enabled: true, colors: ["#ff69b4", "#ffd700", "#ff6347"], count: 80 },
-                sound: { enabled: true, volume: 0.15 }
+                hearts: { enabled: false, colors: [], count: 0, symbols: [] },
+                confetti: { enabled: false, colors: [], count: 0 },
+                sound: { enabled: false, volume: 0 }
             },
-            compliments: ["You're amazing! 💖", "You light up my world! ✨", "Best decision ever! 😍"],
+            compliments: [],
             theme: {
-                primaryColor: "#ff69b4",
-                secondaryColor: "#ff1493",
-                backgroundColor: "#0a0a0a",
-                textColor: "#ffffff",
-                fontFamily: "'Poppins', 'Arial', sans-serif"
+                primaryColor: "",
+                secondaryColor: "",
+                backgroundColor: "",
+                textColor: "",
+                fontFamily: ""
             }
         };
+    }
+
+    async loadConfig() {
+        try {
+            // Embedded config instead of loading from file
+            const config = {
+                "question": {
+                    "text": "Will you be my girlfriend?",
+                    "fontSize": "2.2rem",
+                    "color": "#ffffff"
+                },
+                "buttons": {
+                    "yes": {
+                        "text": "Yes ❤️",
+                        "color": "#ff69b4",
+                        "hoverColor": "#ff1493"
+                    },
+                    "no": {
+                        "text": "No",
+                        "color": "#ff6b6b",
+                        "hoverColor": "#ff4757"
+                    }
+                },
+                "messages": {
+                    "success": "Awww 😍 See you Friday!",
+                    "rejection": [
+                        "Please...? 💕",
+                        "Pretty please? 🥺",
+                        "I promise I'll treat you right! 🌹",
+                        "Just give me a chance? 💖"
+                    ],
+                    "finalMessage": "Only one choice remains 😈",
+                    "systemError": "System Error... Accepting is mandatory 💘"
+                },
+                "effects": {
+                    "hearts": {
+                        "enabled": true,
+                        "colors": ["#ff69b4", "#ff1493", "#dc143c", "#b22222", "#ff6347"],
+                        "count": 150,
+                        "symbols": ["💕", "💖", "💗", "💓", "💘", "💝", "❤️", "💙", "💜", "🧡"]
+                    },
+                    "confetti": {
+                        "enabled": true,
+                        "colors": ["#ff69b4", "#ffd700", "#ff6347", "#ff1493", "#ffb6c1", "#ffc0cb"],
+                        "count": 100
+                    },
+                    "sound": {
+                        "enabled": true,
+                        "volume": 0.15,
+                        "yes": {
+                            "type": "triangle",
+                            "frequency": {
+                                "start": 880,
+                                "end": 440
+                            },
+                            "duration": 0.25
+                        },
+                        "no": {
+                            "type": "square",
+                            "frequency": {
+                                "start": 220,
+                                "end": 110
+                            },
+                            "duration": 0.18
+                        }
+                    }
+                },
+                "compliments": [
+                    "You're amazing! 💖",
+                    "You light up my world! ✨",
+                    "Best decision ever! 😍",
+                    "You make my heart flutter! 🦋",
+                    "Perfect choice! 💕",
+                    "You're incredible! 🌹"
+                ],
+                "theme": {
+                    "primaryColor": "#ff69b4",
+                    "secondaryColor": "#ff1493",
+                    "backgroundColor": "#0a0a0a",
+                    "textColor": "#ffffff",
+                    "fontFamily": "'Poppins', 'Arial', sans-serif"
+                }
+            };
+
+            this.config = config;
+        } catch (error) {
+            console.error('Failed to load config:', error);
+            this.showError();
+            throw error;
+        }
     }
 
     cacheElements() {
@@ -225,7 +305,7 @@ class RomanticApp {
     startFloatingHearts() {
         if (!this.config.effects.hearts.enabled) return;
 
-        const heartSymbols = ['💕', '💖', '💗', '💓', '💘', '💝'];
+        const heartSymbols = this.config.effects.hearts.symbols;
 
         const createHeart = () => {
             const heart = document.createElement('div');
@@ -235,11 +315,19 @@ class RomanticApp {
             heart.style.fontSize = `${1 + Math.random()}rem`;
             heart.style.animationDuration = `${3 + Math.random() * 2}s`;
             heart.style.opacity = `${0.3 + Math.random() * 0.4}`;
+            heart.style.color = this.config.effects.hearts.colors[
+                Math.floor(Math.random() * this.config.effects.hearts.colors.length)
+            ];
 
             this.elements.heartsBackground.appendChild(heart);
 
             setTimeout(() => heart.remove(), 5000);
         };
+
+        // Create initial burst of hearts
+        for (let i = 0; i < this.config.effects.hearts.count / 2; i++) {
+            setTimeout(createHeart, i * 100);
+        }
 
         // Create hearts periodically
         const heartInterval = setInterval(createHeart, 800);
@@ -343,36 +431,25 @@ class RomanticApp {
         if (!this.config.effects.sound.enabled) return;
 
         try {
-            if (!this.audioContext) {
-                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-
-            const ctx = this.audioContext;
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
             const oscillator = ctx.createOscillator();
             const gainNode = ctx.createGain();
+            const soundConfig = this.config.effects.sound[type === 'success' ? 'yes' : 'no'];
 
             oscillator.connect(gainNode);
             gainNode.connect(ctx.destination);
 
+            oscillator.type = soundConfig.type;
+            oscillator.frequency.value = soundConfig.frequency.start;
             gainNode.gain.value = this.config.effects.sound.volume;
 
-            if (type === 'success') {
-                // Happy ascending tone
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(440, ctx.currentTime);
-                oscillator.frequency.linearRampToValueAtTime(880, ctx.currentTime + 0.3);
-                gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
-                oscillator.stop(ctx.currentTime + 0.3);
-            } else if (type === 'rejection') {
-                // Disappointed descending tone
-                oscillator.type = 'triangle';
-                oscillator.frequency.setValueAtTime(330, ctx.currentTime);
-                oscillator.frequency.linearRampToValueAtTime(220, ctx.currentTime + 0.2);
-                gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.2);
-                oscillator.stop(ctx.currentTime + 0.2);
-            }
-
             oscillator.start();
+            oscillator.frequency.linearRampToValueAtTime(
+                soundConfig.frequency.end,
+                ctx.currentTime + soundConfig.duration
+            );
+            gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + soundConfig.duration);
+            oscillator.stop(ctx.currentTime + soundConfig.duration);
         } catch (error) {
             console.warn('Audio playback failed:', error);
         }
