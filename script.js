@@ -249,15 +249,22 @@ class RomanticApp {
         const x = Math.random() * maxX + padding;
         const y = Math.random() * maxY + padding;
 
+        // Reset any existing transform to prevent accumulation
+        button.style.transform = 'none';
+
         button.style.position = 'fixed';
         button.style.left = `${x}px`;
         button.style.top = `${y}px`;
         button.style.zIndex = '1000';
 
-        // Add rotation animation
-        const rotation = (this.noClicks * 45) % 360;
-        button.style.transform = `rotate(${rotation}deg)`;
-        button.style.transition = 'all 0.4s ease-in-out';
+        // Calculate new rotation angle (0 to 360 degrees)
+        const rotation = (Math.random() * 360);
+
+        // Apply new rotation with a clean transition
+        requestAnimationFrame(() => {
+            button.style.transition = 'transform 0.4s ease-in-out';
+            button.style.transform = `rotate(${rotation}deg)`;
+        });
     }
 
     shakeButton() {
